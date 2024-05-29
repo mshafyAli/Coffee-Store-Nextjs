@@ -26,6 +26,8 @@ const Card = ({ name, href, imgUrl }: CardType) => {
             width={260}
             height={160}
             alt={name}
+            blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mO8/+ZNPQAIoQM4xp5zkgAAAABJRU5ErkJggg=="
+            placeholder="blur"
           />
         </div>
       </div>
