@@ -1,8 +1,8 @@
 import Banner from "./components/banner.client";
-import Link from "next/link";
 import Card from "./components/card.server";
 import {fetchCoffeeStores} from '@/lib/coffee-store'
 import { CoffeeStoreType } from "@/types";
+import NearByCoffeeStore from "./components/nearby-coffee-store.client";
 
 
 
@@ -26,7 +26,7 @@ export default async function Home() {
    
     <div className="mb-56">
       <main className="mx-auto mt-10 max-w-6xl px-4">
-        <Banner />
+        <NearByCoffeeStore/>
         <div className="mt-20">
           <h2 className="mt-8 pb-8 text-4xl font-bold text-white">
             Toronto Stores

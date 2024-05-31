@@ -1,19 +1,36 @@
 import React from 'react'
 import Link from 'next/link'
-import { fetchCoffeeStore } from '@/lib/coffee-store';
+import { fetchCoffeeStore, fetchCoffeeStores } from '@/lib/coffee-store';
 import Image from 'next/image';
+import { CoffeeStoreType } from '@/types';
 
-async function getData(id: string) {
+async function getData(id: string,queryId:string) {
   //mapbox api
-  return await fetchCoffeeStore(id);
+  return await fetchCoffeeStore(id,queryId);
+}
+
+const generateStaticParams = async()=>{
+  const coffeeStores = await fetchCoffeeStores();
+  return coffeeStores.map((coffeeStore:CoffeeStoreType)=>({
+    id: coffeeStore.id.toString()
+  }))
 }
 
 
 
-const page = async({params}:{params: {id:string}}) => {
-  const coffeeStore = await getData(params.id);
+const page=async(props: {
+  params: { id: string };
+  searchParams: { id: string };
+}) => {
+  const {
+    params: { id },
+    searchParams: { id: queryId },
+  } = props;
 
-  const {name = '',address = '', imgUrl = ''} = coffeeStore
+
+  const coffeeStore = await getData(id, queryId);
+
+  const {name = '',address = '', imgUrl = ''} = coffeeStore;
 
   return (
     <div className="h-full pb-80">
@@ -27,8 +44,7 @@ const page = async({params}:{params: {id:string}}) => {
         </div>
         <Image
           src={
-            imgUrl ||
-            'https://images.unsplash.com/photo-1504753793650-d4a2b783c15e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80'
+            imgUrl 
           }
           width={740}
           height={360}
@@ -50,3 +66,4 @@ const page = async({params}:{params: {id:string}}) => {
 }
 
 export default page
+

@@ -1,12 +1,9 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { CardType } from "@/types";
 
-type CardType = {
-  name: string;
-  href: string;
-  imgUrl: string;
-};
+
 
 const Card = ({ name, href, imgUrl }: CardType) => {
   return (

@@ -14,3 +14,9 @@ export type CoffeeStoreType = {
     imgUrl: string;
     address: string;
   }
+
+export  type CardType = {
+    name: string;
+    href: string;
+    imgUrl: string;
+  };
