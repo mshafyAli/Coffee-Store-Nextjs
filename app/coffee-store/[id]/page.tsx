@@ -10,7 +10,8 @@ async function getData(id: string,queryId:string) {
 }
 
 const generateStaticParams = async()=>{
-  const coffeeStores = await fetchCoffeeStores();
+  const TORONTO_LONG_LATE = '-79.3789680885594%2C43.653833032607096';
+  const coffeeStores = await fetchCoffeeStores(TORONTO_LONG_LATE);
   return coffeeStores.map((coffeeStore:CoffeeStoreType)=>({
     id: coffeeStore.id.toString()
   }))

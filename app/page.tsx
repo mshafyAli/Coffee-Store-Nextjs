@@ -10,8 +10,9 @@ import NearByCoffeeStore from "./components/nearby-coffee-store.client";
 
 async function getData() {
   try {
-    const data = await fetchCoffeeStores();
-    return data;
+    const TORONTO_LONG_LATE = '-79.3789680885594%2C43.653833032607096';
+  const coffeeStores = await fetchCoffeeStores(TORONTO_LONG_LATE);
+    return coffeeStores;
   } catch (error) {
     console.error('Error fetching coffee stores:', error);
     return [];
