@@ -4,7 +4,7 @@ import { MapboxType } from "@/types";
 const getListOfCoffeeStorePhotos = async () => {
   try {
     const response = await fetch(
-      `https://api.unsplash.com/search/photos/?client_id=${process.env.NEXT_PUBLIC_UNSPLASH_ACCESS_KEY}&query="coffee shop"&page=1&perPage=10&orientation=landscape`
+      `https://api.unsplash.com/search/photos/?client_id=${process.env.UNSPLASH_ACCESS_KEY}&query="coffee shop"&page=1&perPage=10&orientation=landscape`
     );
     const photos = await response.json();
     const results = photos?.results || [];
@@ -28,10 +28,10 @@ const transformCoffeData = (
 };
 
 
-export const fetchCoffeeStores = async (longLat:string) => {
+export const fetchCoffeeStores = async (longLat:string,limit:number) => {
     try {
       const response = await fetch(
-        `https://api.mapbox.com/geocoding/v5/mapbox.places/coffee.json?limit=6&proximity=${longLat}&access_token=${process.env.NEXT_PUBLIC_MAPBOX_API}`
+        `https://api.mapbox.com/geocoding/v5/mapbox.places/coffee.json?limit=${limit}=6&proximity=${longLat}&access_token=${process.env.MAPBOX_API}`
       );
    
       const data = await response.json();

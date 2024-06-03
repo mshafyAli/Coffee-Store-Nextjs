@@ -11,7 +11,7 @@ type PositionType ={
 
 const UseTrackLocation = ()=>{
     const [isFindingLocation,setIsFindingLocation] = useState(false);
-    const [latLong,setLatLong] = useState('');
+    const [longLat,setLongLate] = useState('');
     const [locationError,setLocationError] = useState('');
 
 
@@ -21,7 +21,7 @@ const UseTrackLocation = ()=>{
         const longitude = position.coords.longitude;
     
 
-        setLatLong(`${latitude},${longitude}`);
+        setLongLate(`${latitude},${longitude}`);
         setIsFindingLocation(false);
         setLocationError('');
 
@@ -50,7 +50,7 @@ const UseTrackLocation = ()=>{
     
     return {
         locationError,
-        latLong,
+        longLat,
         isFindingLocation,
         handleTrackLocation,
     }
