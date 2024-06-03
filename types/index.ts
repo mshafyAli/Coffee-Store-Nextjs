@@ -13,6 +13,7 @@ export type CoffeeStoreType = {
     name: string;
     imgUrl: string;
     address: string;
+    voting:number;
   }
 
 export  type CardType = {
@@ -20,3 +21,9 @@ export  type CardType = {
     href: string;
     imgUrl: string;
   };
+
+  export type AirTableType ={
+    id:string,
+    recordId:string,
+    fields: CoffeeStoreType,
+  }

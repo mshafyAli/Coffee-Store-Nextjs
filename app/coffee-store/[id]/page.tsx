@@ -3,15 +3,17 @@ import Link from 'next/link'
 import { fetchCoffeeStore, fetchCoffeeStores } from '@/lib/coffee-store';
 import Image from 'next/image';
 import { CoffeeStoreType } from '@/types';
+import { createCoffeeStore } from '@/lib/airtable';
 
 async function getData(id: string,queryId:string) {
-  //mapbox api
-  return await fetchCoffeeStore(id,queryId);
+  const coffeeStoreFromMapbox = await fetchCoffeeStore(id,queryId);
+  const _createCoffeeStore = createCoffeeStore(coffeeStoreFromMapbox,id);
+  return coffeeStoreFromMapbox;
 }
 
 const generateStaticParams = async()=>{
   const TORONTO_LONG_LATE = '-79.3789680885594%2C43.653833032607096';
-  const coffeeStores = await fetchCoffeeStores(TORONTO_LONG_LATE);
+  const coffeeStores = await fetchCoffeeStores(TORONTO_LONG_LATE,6);
   return coffeeStores.map((coffeeStore:CoffeeStoreType)=>({
     id: coffeeStore.id.toString()
   }))
