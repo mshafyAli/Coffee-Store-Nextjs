@@ -4,6 +4,7 @@ import { fetchCoffeeStore, fetchCoffeeStores } from '@/lib/coffee-store';
 import Image from 'next/image';
 import { CoffeeStoreType } from '@/types';
 import { createCoffeeStore } from '@/lib/airtable';
+import UpVote from '@/app/components/upVote.client';
 
 async function getData(id: string,queryId:string) {
   const coffeeStoreFromMapbox = await fetchCoffeeStore(id,queryId);
@@ -68,6 +69,7 @@ const page=async(props: {
             <p className="pl-2">{address}</p>
           </div>
         )}
+        <UpVote/>
       </div>
     </div>
   </div>
