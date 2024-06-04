@@ -19,7 +19,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={ibmPlexSans.className}>{children}</body>
+      <body className={ibmPlexSans.className}>{children}
+      <footer className="mt-auto bg-violet-900 py-6 text-lg text-white">
+          <div className="text-center">By Shafy Ali</div>
+        </footer>
+      </body>
     </html>
   );
 }

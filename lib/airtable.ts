@@ -66,7 +66,7 @@ export const createCoffeeStore = async (
       console.error('Error creating or finding a store', error);
     }
   };
-  
+
   export const updateCoffeeStore = async (id: string) => {
     try {
       if (id) {

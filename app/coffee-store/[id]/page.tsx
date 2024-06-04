@@ -8,8 +8,15 @@ import UpVote from '@/app/components/upVote.client';
 
 async function getData(id: string,queryId:string) {
   const coffeeStoreFromMapbox = await fetchCoffeeStore(id,queryId);
-  const _createCoffeeStore = createCoffeeStore(coffeeStoreFromMapbox,id);
-  return coffeeStoreFromMapbox;
+  const _createCoffeeStore =  await createCoffeeStore(coffeeStoreFromMapbox,id);
+
+  const voting = _createCoffeeStore ? _createCoffeeStore[0].voting : 0;
+  return coffeeStoreFromMapbox ? {
+    ...coffeeStoreFromMapbox,voting
+
+  }:{
+
+  }
 }
 
 const generateStaticParams = async()=>{
@@ -34,7 +41,7 @@ const page=async(props: {
 
   const coffeeStore = await getData(id, queryId);
 
-  const {name = '',address = '', imgUrl = ''} = coffeeStore;
+  const {name = '',address = '', imgUrl = '',voting} = coffeeStore;
 
   return (
     <div className="h-full pb-80">
@@ -69,7 +76,7 @@ const page=async(props: {
             <p className="pl-2">{address}</p>
           </div>
         )}
-        <UpVote/>
+        <UpVote voting={voting} id={id}/>
       </div>
     </div>
   </div>

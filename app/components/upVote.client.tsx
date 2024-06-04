@@ -1,32 +1,58 @@
-'use client'
 
-import Image from 'next/image'
-import React from 'react'
+'use client';
 
-const UpVote = () => {
-
-    const handleOnClick = () => {
-        console.log('clicked')
-    }
+import { upVoteAction } from '@/actions';
+import Image from 'next/image';
 
 
+import { useFormState, useFormStatus } from 'react-dom';
+
+export function SubmitButton() {
+  const { pending } = useFormStatus();
 
   return (
-   <>
-     <div className="mb-6 flex">
+    <button
+      type="submit"
+      className="bg-purple-951 min-w-[120px]"
+      disabled={pending}
+      aria-disabled={pending}
+    >
+      {pending ? (
+        <Image
+          src="/static/icons/loading-spinner.svg"
+          width="30"
+          height="30"
+          alt="Loading"
+          className="m-auto"
+        />
+      ) : (
+        'Up vote!'
+      )}
+    </button>
+  );
+}
+
+export default function Upvote({ voting, id }: { voting: number; id: string }) {
+  const initialState = {
+    id,
+    voting,
+  };
+
+  const [state, dispatch] = useFormState(upVoteAction, initialState);
+
+  return (
+    <form action={dispatch}>
+      <div className="mb-6 flex">
         <Image
           src="/static/icons/star.svg"
           width="24"
           height="24"
           alt="star icon"
         />
-        <p className="pl-2">0</p>
+        <p className="pl-2">{state.voting}</p>
       </div>
 
-      <button onClick={handleOnClick}>Up Vote!</button>
-   
-   </>
-  )
+      <SubmitButton />
+    </form>
+  );
 }
-
-export default UpVote
