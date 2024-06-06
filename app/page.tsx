@@ -3,6 +3,8 @@ import Card from "./components/card.server";
 import {fetchCoffeeStores} from '@/lib/coffee-store'
 import { CoffeeStoreType } from "@/types";
 import NearByCoffeeStore from "./components/nearby-coffee-store.client";
+import { Metadata } from "next";
+import { getDomain } from "@/utills";
 
 
 
@@ -18,6 +20,17 @@ async function getData() {
     return [];
   }
 }
+
+export const metadata: Metadata = {
+  title: 'Coffee Connoisseur',
+  description: 'Allaws you to Discover Coffee Shop',
+  metadataBase: getDomain(),
+  alternates: {
+    canonical: '/',
+  },
+
+};
+
 
 
 export default async function Home() {

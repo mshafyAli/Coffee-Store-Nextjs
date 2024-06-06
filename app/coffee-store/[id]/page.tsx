@@ -2,9 +2,10 @@ import React from 'react'
 import Link from 'next/link'
 import { fetchCoffeeStore, fetchCoffeeStores } from '@/lib/coffee-store';
 import Image from 'next/image';
-import { CoffeeStoreType } from '@/types';
+import { CoffeeStoreType, ServerParamsType } from '@/types';
 import { createCoffeeStore } from '@/lib/airtable';
 import UpVote from '@/app/components/upVote.client';
+import { getDomain } from '@/utills';
 
 async function getData(id: string,queryId:string) {
   const coffeeStoreFromMapbox = await fetchCoffeeStore(id,queryId);
@@ -19,12 +20,28 @@ async function getData(id: string,queryId:string) {
   }
 }
 
-const generateStaticParams = async()=>{
+export const generateStaticParams = async()=>{
   const TORONTO_LONG_LATE = '-79.3789680885594%2C43.653833032607096';
   const coffeeStores = await fetchCoffeeStores(TORONTO_LONG_LATE,6);
   return coffeeStores.map((coffeeStore:CoffeeStoreType)=>({
     id: coffeeStore.id.toString()
   }))
+}
+
+export const generateMetadata = async({params,searchParams}:ServerParamsType)=>{
+
+  const coffeeStoreFromMapbox = await fetchCoffeeStore(params.id,searchParams.id);
+
+  const {name = ''} = coffeeStoreFromMapbox;
+
+  return {
+    title: name,
+    description: `${name}-coffee-store`,
+    metadataBase: getDomain(),
+    alternates:{
+      canonical:`/coffee-store/${params.id}`
+    }
+  }
 }
 
 

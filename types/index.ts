@@ -27,3 +27,8 @@ export  type CardType = {
     recordId:string,
     fields: CoffeeStoreType,
   }
+
+  export type ServerParamsType ={
+    params : {id:string},
+    searchParams : {id:string},
+  }
