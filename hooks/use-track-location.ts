@@ -1,6 +1,19 @@
 'use client';
 
 import { useState } from "react";
+import { useReducer } from 'react';
+
+
+interface State {
+    voting: number;
+    id: string;
+  }
+  
+  interface Action {
+    type: string;
+    payload?: any;
+  }
+
 
 
 type PositionType ={
@@ -8,6 +21,29 @@ type PositionType ={
         latitude: number; longitude: number
     };
 };
+
+export function useFormState(initialState: State) {
+    function reducer(state: State, action: Action) {
+      switch (action.type) {
+        case 'UPVOTE':
+          return { ...state, voting: state.voting + 1 };
+        default:
+          return state;
+      }
+    }
+  
+    return useReducer(reducer, initialState);
+  }
+  
+  // Custom hook: useFormStatus
+  export function useFormStatus() {
+    const [pending, setPending] = useState(false);
+  
+    return {
+      pending,
+      setPending,
+    };
+  }
 
 const UseTrackLocation = ()=>{
     const [isFindingLocation,setIsFindingLocation] = useState(false);

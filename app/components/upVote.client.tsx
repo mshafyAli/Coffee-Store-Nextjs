@@ -1,11 +1,7 @@
-
 'use client';
 
-import { upVoteAction } from '@/actions';
 import Image from 'next/image';
-
-
-import { useFormState, useFormStatus } from 'react-dom';
+import { useFormState, useFormStatus } from '../../hooks/use-track-location'
 
 export function SubmitButton() {
   const { pending } = useFormStatus();
@@ -38,10 +34,15 @@ export default function Upvote({ voting, id }: { voting: number; id: string }) {
     voting,
   };
 
-  const [state, dispatch] = useFormState(upVoteAction, initialState);
+  const [state, dispatch] = useFormState(initialState);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    dispatch({ type: 'UPVOTE' });
+  };
 
   return (
-    <form action={dispatch}>
+    <form onSubmit={handleSubmit}>
       <div className="mb-6 flex">
         <Image
           src="/static/icons/star.svg"
